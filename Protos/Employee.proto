@@ -1,0 +1,289 @@
+syntax = "proto3";
+
+option csharp_namespace = "TalentaReceiver.Protos";
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/timestamp.proto";
+import "google/api/annotations.proto";
+
+// ================================ WebHook Employee ================================
+
+message Root {
+	Data data = 1 [json_name="data"];
+}
+
+message Data {
+	repeated Employees employees = 1 [json_name="employees"];
+}
+
+message Employees {
+	Employee employee = 1 [json_name="employee"];
+}
+
+message Employee {	
+	Personal				personal		= 1 [json_name="personal"];
+	Family					family			= 2 [json_name="family"];
+	Education				education		= 3 [json_name="education"];
+	Employment				employment		= 4 [json_name="employment"];
+	PayrollInfo				payroll_info	= 5 [json_name="payroll_info"];
+	repeated CustomField	custom_field	= 6 [json_name="custom_field"];
+	AccessRole				access_role		= 7 [json_name="access_role"];
+}
+
+message Personal {
+	google.protobuf.StringValue first_name					= 1 [json_name = "first_name"];
+	google.protobuf.StringValue last_name					= 2 [json_name = "last_name"];
+	google.protobuf.StringValue barcode						= 3 [json_name = "barcode"];
+	google.protobuf.StringValue email						= 4 [json_name = "email"];
+	google.protobuf.StringValue identity_type				= 5 [json_name = "identity_type"];
+	google.protobuf.StringValue identity_number				= 6 [json_name = "identity_number"];
+	google.protobuf.StringValue expired_date_identity_id	= 7 [json_name = "expired_date_identity_id"];
+	google.protobuf.StringValue postal_code					= 8 [json_name = "postal_code"];
+	google.protobuf.StringValue address						= 9 [json_name = "address"];
+	google.protobuf.StringValue current_address				= 10 [json_name = "current_address"];
+	google.protobuf.StringValue birth_place					= 11 [json_name = "birth_place"];
+	google.protobuf.StringValue birth_date					= 12 [json_name = "birth_date"];
+	google.protobuf.StringValue phone						= 13 [json_name = "phone"];
+	google.protobuf.StringValue mobile_phone				= 14 [json_name = "mobile_phone"];
+	google.protobuf.StringValue gender						= 15 [json_name = "gender"];
+	google.protobuf.StringValue marital_status				= 16 [json_name = "marital_status"];
+	google.protobuf.StringValue blood_type					= 17 [json_name = "blood_type"];
+	google.protobuf.StringValue religion					= 18 [json_name = "religion"];
+	google.protobuf.StringValue avatar						= 19 [json_name = "avatar"];
+	google.protobuf.StringValue amount						= 20;
+	google.protobuf.StringValue bank_account				= 21 [json_name="bank_account"];
+	google.protobuf.StringValue bank_key					= 22 [json_name="bank_key"];
+	google.protobuf.StringValue country						= 23;
+	google.protobuf.StringValue country_of_issue			= 24 [json_name="country_of_issue"];
+	google.protobuf.StringValue id_number					= 25 [json_name="id_number"];
+	google.protobuf.StringValue number_of_dependants		= 26 [json_name="number_of_dependants"];
+	google.protobuf.StringValue personal_tax_id				= 27 [json_name="personal_tax_id"];
+	google.protobuf.StringValue street_and_house_no			= 28 [json_name="street_and_house_no"];
+	google.protobuf.StringValue telephone_number			= 29 [json_name="telephone_number"];
+	google.protobuf.StringValue time_mgmt_status			= 30 [json_name="time_mgmt_status"];
+	google.protobuf.StringValue wagetype					= 31;
+}
+
+message Family {
+	repeated Members members = 1;
+	repeated EmergencyContacts emergency_contact = 2 [json_name="emergency_contacts"];
+}
+
+message EmergencyContacts { 
+	google.protobuf.StringValue full_name		= 1 [json_name="full_name"];
+	google.protobuf.StringValue relationship	= 2;
+	google.protobuf.StringValue birth_date		= 3 [json_name="birth_date"];
+	google.protobuf.StringValue no_ktp			= 4 [json_name="no_ktp"];
+	google.protobuf.StringValue marital_status	= 5 [json_name="marital_status"];
+	google.protobuf.StringValue gender			= 6;
+	google.protobuf.StringValue job				= 7;
+	google.protobuf.StringValue religion		= 8;
+}
+
+message Members { 
+	google.protobuf.StringValue full_name		= 1 [json_name="full_name"];
+	google.protobuf.StringValue relationship	= 2;
+	google.protobuf.Int32Value	relationship_id = 3 [json_name="relationship_id"];
+	google.protobuf.StringValue birth_date		= 4 [json_name="birth_date"];
+	google.protobuf.StringValue marital_status	= 5 [json_name="marital_status"];
+	google.protobuf.StringValue gender			= 6;
+	google.protobuf.StringValue job				= 7;
+	google.protobuf.StringValue religion		= 8;
+	google.protobuf.Int32Value	is_deleted		= 9 [json_name="is_deleted"];
+	google.protobuf.StringValue created_at		= 10 [json_name="created_at"];
+	google.protobuf.StringValue updated_at		= 11 [json_name="updated_at"];
+	google.protobuf.StringValue no_ktp			= 12 [json_name="no_ktp"];
+}
+
+message Education {
+	repeated FormalEducationHistory formal_education_history = 1 [json_name="formal_education_history"];
+	repeated InformalEducationHistory informal_education_history = 2 [json_name="informal_education_history"];
+}
+
+message FormalEducationHistory { }
+
+message InformalEducationHistory { }
+
+message Employment {
+	google.protobuf.StringValue employee_id					= 1 [json_name = "employee_id"];
+	google.protobuf.Int32Value company_id					= 2 [json_name = "company_id"];
+	google.protobuf.Int32Value organization_id				= 3 [json_name = "organization_id"];
+	google.protobuf.StringValue organization_name			= 4 [json_name = "organization_name"];
+	google.protobuf.Int32Value job_position_id				= 5 [json_name = "job_position_id"];
+	google.protobuf.StringValue job_position				= 6 [json_name = "job_position"];
+	google.protobuf.StringValue job_level					= 7 [json_name = "job_level"];
+	google.protobuf.StringValue employment_status			= 8 [json_name = "employment_status"];
+	google.protobuf.StringValue end_date					= 9 [json_name = "end_date"];
+	google.protobuf.Int32Value branch_id					= 10 [json_name = "branch_id"];
+	google.protobuf.StringValue branch						= 11 [json_name = "branch"];
+	google.protobuf.StringValue join_date					= 12 [json_name = "join_date"];
+	google.protobuf.StringValue length_of_service			= 13 [json_name = "length_of_service"];
+	google.protobuf.StringValue grade						= 14 [json_name = "grade"];
+	google.protobuf.StringValue class						= 15 [json_name = "class"];
+	google.protobuf.Int32Value approval_line				= 16 [json_name = "approval_line"];
+	google.protobuf.StringValue status						= 17 [json_name = "status"];
+	google.protobuf.StringValue resign_date					= 18 [json_name = "resign_date"];
+	repeated Sbu sbu										= 19 [json_name = "sbu"];
+	google.protobuf.StringValue sign_date					= 20 [json_name = "sign_date"];
+	google.protobuf.Int32Value employment_status_id			= 21 [json_name = "employment_status_id"];
+	google.protobuf.StringValue approval_line_employee_id	= 22 [json_name = "approval_line_employee_id"];
+	google.protobuf.Int32Value job_level_id					= 23 [json_name = "job_level_id"];
+	repeated WorkingExperience working_experiences			= 24 [json_name = "working_experiences"];
+	google.protobuf.StringValue branch_code					= 25 [json_name = "branch_code"];
+	google.protobuf.StringValue employee_group				= 26 [json_name = "employee_group"];
+	google.protobuf.StringValue employee_subgroup			= 27 [json_name = "employee_subgroup"];
+	google.protobuf.StringValue level						= 28 [json_name = "level"];
+	google.protobuf.StringValue nationality_code			= 29 [json_name = "nationality_code"];
+	google.protobuf.StringValue personnel_area				= 30 [json_name = "personnel_area"];
+	google.protobuf.StringValue position					= 31 [json_name = "position"];
+	google.protobuf.StringValue ps_group					= 32 [json_name = "ps_group"];
+	google.protobuf.StringValue start						= 33 [json_name = "start"];
+	google.protobuf.StringValue work_schedule_rule			= 34 [json_name = "work_schedule_rule"];
+	google.protobuf.StringValue country_of_issue			= 35 [json_name = "country_of_issue"];
+	google.protobuf.StringValue date_of_issue				= 36 [json_name = "date_of_issue"];
+}
+
+message WorkingExperience { }
+
+message Sbu {
+	google.protobuf.Int32Value	field_id	= 1 [json_name = "field_id"];
+	google.protobuf.StringValue field_name	= 2 [json_name = "field_name"];
+	google.protobuf.Int32Value	value_id	= 3 [json_name = "value_id"];
+	google.protobuf.StringValue value_name	= 4 [json_name = "value_name"];
+	google.protobuf.StringValue value_code	= 5 [json_name = "value_code"];
+}
+
+message PayrollInfo {
+	google.protobuf.Int32Value	cost_center_id				= 1 [json_name="cost_center_id"];
+	google.protobuf.StringValue cost_center_name			= 2 [json_name="cost_center_name"];
+	google.protobuf.Int32Value	cost_center_category_id		= 3 [json_name="cost_center_category_id"];
+	google.protobuf.StringValue cost_center_category_name	= 4 [json_name="cost_center_category_name"];
+	google.protobuf.StringValue bpjs_ketenagakerjaan		= 5 [json_name="bpjs_ketenagakerjaan"];
+	google.protobuf.StringValue bpjs_kesehatan				= 6 [json_name="bpjs_kesehatan"];
+	google.protobuf.StringValue npwp						= 7 [json_name="npwp"];
+	google.protobuf.Int32Value	bank_id						= 8 [json_name="bank_id"];
+	google.protobuf.StringValue bank_name					= 9 [json_name="bank_name"];
+	google.protobuf.StringValue bank_account				= 10 [json_name="bank_account"];
+	google.protobuf.StringValue bank_account_holder			= 11 [json_name="bank_account_holder"];
+	google.protobuf.StringValue ptkp_status					= 12 [json_name="ptkp_status"];
+	google.protobuf.StringValue bank_code					= 13 [json_name="bank_code"];
+	google.protobuf.Int32Value	employee_tax_status			= 14 [json_name="employee_tax_status"];
+	google.protobuf.StringValue nationality_code			= 15 [json_name="nationality_code"];
+	google.protobuf.StringValue expatriatedn_date			= 16 [json_name="expatriatedn_date"];
+	google.protobuf.StringValue created_at					= 17 [json_name="created_at"];
+	google.protobuf.StringValue updated_at					= 18 [json_name="updated_at"];
+}
+
+message CustomField {
+	google.protobuf.StringValue field_name = 1 [json_name = "field_name"];
+	google.protobuf.StringValue value = 2 [json_name = "value"];
+}
+
+message AccessRole {
+	google.protobuf.Int32Value	id = 1;
+	google.protobuf.StringValue name = 2;
+	google.protobuf.Int32Value	role_id = 3 [json_name = "role_id"];
+	google.protobuf.StringValue role_name = 4 [json_name = "role_name"];
+	google.protobuf.StringValue role_type = 5 [json_name = "role_type"];
+}
+
+// ================================ Employee Resign ================================
+
+message reqUserId {
+	int32 user_id = 1 [json_name="user_id"];
+}
+
+message ResponseMessage {
+	int32 code = 1;
+	google.protobuf.StringValue message = 2;
+}
+
+message ResignDataRequest {
+	ResignData data = 1 [json_name = "data"];
+}
+
+message ResignData {
+	repeated ResignEmployees employees = 1 [json_name="employees"];
+}
+
+message ResignEmployees {
+	ResignEmploymentRequest employment = 1 [json_name="employment"];
+}
+
+message ResignEmployment {
+	google.protobuf.StringValue employee_id					= 1 [json_name = "employee_id"];
+	google.protobuf.Int32Value company_id					= 2 [json_name = "company_id"];
+	google.protobuf.Int32Value organization_id				= 3 [json_name = "organization_id"];
+	google.protobuf.StringValue organization_name			= 4 [json_name = "organization_name"];
+	google.protobuf.Int32Value job_position_id				= 5 [json_name = "job_position_id"];
+	google.protobuf.StringValue job_position				= 6 [json_name = "job_position"];
+	google.protobuf.Int32Value job_level_id					= 7 [json_name = "job_level_id"];
+	google.protobuf.StringValue job_level					= 8 [json_name = "job_level"];
+	google.protobuf.Int32Value employment_status_id			= 9 [json_name = "employment_status_id"];
+	google.protobuf.StringValue employment_status			= 10 [json_name = "employment_status"];
+	google.protobuf.Int32Value branch_id					= 11 [json_name = "branch_id"];
+	google.protobuf.StringValue branch						= 12;
+	google.protobuf.StringValue join_date					= 13 [json_name = "join_date"];
+	google.protobuf.StringValue length_of_service			= 14 [json_name = "length_of_service"];
+	google.protobuf.StringValue grade						= 15;
+	google.protobuf.StringValue class						= 16;
+	google.protobuf.Int32Value  approval_line				= 17 [json_name = "approval_line"];
+	google.protobuf.StringValue approval_line_employee_id	= 18 [json_name = "approval_line_employee_id"];
+	google.protobuf.StringValue status						= 19;	
+	google.protobuf.StringValue resign_date					= 20 [json_name = "resign_date"];
+	repeated WorkingExperience working_experiences			= 21 [json_name = "working_experiences"];	
+}
+
+message ResignEmploymentRequest {
+	google.protobuf.StringValue employee_id					= 1 [json_name="employee_id"];
+	google.protobuf.Int32Value approval_line_employee_id	= 2 [json_name="approval_line_employee_id"];
+	google.protobuf.StringValue resign_date					= 3 [json_name="resign_date"];
+	google.protobuf.StringValue status						= 4 [json_name="status"];
+	google.protobuf.StringValue user_id						= 5 [json_name="user_id"];
+}
+
+// ================================ Employee Transfer ================================
+
+message EmpTransferRoot {
+	EmpTransferData emp_transfer_data = 1 [json_name="data"];
+}
+
+message EmpTransferData {
+	repeated EmpTransferEmployees emp_transfer_employees = 1 [json_name="employees"];
+}
+
+message EmpTransferEmployees {
+	Employee old_employment = 1 [json_name="old_employment"];
+	Employee new_employment = 2 [json_name="new_employment"];
+}
+
+// ================================ Services ================================
+
+service TalentaReceiverServiceGrpc {
+	rpc PostEmployee(Root) returns (ResponseMessage) {
+		option (google.api.http) = {
+			post: "/v1/talenta-receiver/employee",
+			body: "*"
+		};
+	}
+
+	rpc UpdateEmployee(Root) returns (ResponseMessage) {
+		option (google.api.http) = {
+			post: "/v1/talenta-receiver/update-employee",
+			body: "*"
+		};
+	}
+
+	rpc EmployeeResign(ResignDataRequest) returns (ResponseMessage) {
+		option (google.api.http) = {
+			post: "/v1/talenta-receiver/employee-resign",
+			body: "*"
+		};
+	}
+
+	rpc EmployeeTransfer(EmpTransferRoot) returns (ResponseMessage) {
+		option (google.api.http) = {
+			post: "/v1/talenta-receiver/employee-transfer",
+			body: "*"
+		};
+	}
+}

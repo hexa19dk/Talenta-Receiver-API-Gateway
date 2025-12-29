@@ -1,0 +1,38 @@
+[
+  {
+    "KodePool": "BC",
+    "NIP": "00001011",
+    "NamaPeserta": "TOTOK DWIYANTO",
+    "TanggalLahir": "19660512",
+    "JenisKelamin": "L",
+    "StatusPerkawinan": "M",
+    "FlagPegawai": "N",
+    "KodePrsh": "GBMO",
+    "KodeJabatan": "Z5",
+    "KodeBagian": "ADM",
+    "StatusPeserta": "A",
+    "StatusKaryawan": "K",
+    "TanggalMasuk": "19890619",
+    "CreateDate": "",
+    "CreateTime": "",
+    "TanggalAngkat": "19890919"
+  },
+  {
+    "KodePool": "HO",
+    "NIP": "00001012",
+    "NamaPeserta": "OTOK RIANTORI",
+    "TanggalLahir": "19670512",
+    "JenisKelamin": "L",
+    "StatusPerkawinan": "M",
+    "FlagPegawai": "N",
+    "KodePrsh": "BLBO",
+    "KodeJabatan": "Z2",
+    "KodeBagian": "BKL",
+    "StatusPeserta": "A",
+    "StatusKaryawan": "K",
+    "TanggalMasuk": "19900619",
+    "CreateDate": "",
+    "CreateTime": "",
+    "TanggalAngkat": "19900919"
+  }
+]

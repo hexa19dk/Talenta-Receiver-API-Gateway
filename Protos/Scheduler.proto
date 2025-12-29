@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+option csharp_namespace = "TalentaReceiver.Protos";
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/timestamp.proto";
+import "google/api/annotations.proto";
+import "Protos/Employee.proto";
+
+
+message SchedulerRequest {
+	google.protobuf.Timestamp current_date = 1;
+}
+
+message JobRequest { }
+
+message StartEndDateResponse {
+	google.protobuf.Timestamp start_date = 1;
+	google.protobuf.Timestamp end_date = 2;
+}
+
+service SchedulerServiceGrpc {
+	rpc RunOvertimeJob(JobRequest) returns (ResponseMessage) {
+		option (google.api.http) = {
+			post: "/v1/talenta-receiver/overtime-job",
+		};
+	}
+
+	rpc TimeoffJob(JobRequest) returns (ResponseMessage) {
+		option (google.api.http) = {
+			post: "/v1/talenta-receiver/timeoff-job",
+		};
+	}
+
+	rpc DailyWorkScheduleJob(JobRequest) returns (ResponseMessage) {
+		option (google.api.http) = {
+			post: "/v1/talenta-receiver/dws-job",
+		};
+	}
+	rpc PeriodWorkScheduleJob(JobRequest) returns (ResponseMessage) {
+		option (google.api.http) = {
+			post: "/v1/talenta-receiver/pws-job",
+		};
+	}
+}

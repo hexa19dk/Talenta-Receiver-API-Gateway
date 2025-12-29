@@ -1,0 +1,101 @@
+syntax = "proto3";
+
+option csharp_namespace = "TalentaReceiver.Protos";
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/timestamp.proto";
+import "google/api/annotations.proto";
+import "Protos/Employee.proto";
+
+message RootMasterPws {
+	DataPws data = 1 [json_name="data"];
+}
+
+message DataPws {
+	repeated PeriodWorkSchedules period_work_schedules = 1; 
+}
+
+message PeriodWorkSchedules {
+	PeriodWorkSchedule period_work_schedule = 1;
+}
+
+message PeriodWorkSchedule {
+	google.protobuf.StringValue period_work_schedule_code	= 1 [json_name = "period_work_schedule_code"];
+	google.protobuf.Int32Value	work_days					= 2 [json_name = "work_days"];
+	google.protobuf.StringValue daily_work_schedule_code	= 3 [json_name = "daily_work_schedule_code"];
+	google.protobuf.StringValue period_work_schedule_text	= 4 [json_name = "period_work_schedule_text"];
+	repeated string				daily_work_schedule			= 5 [json_name = "daily_work_schedule"];
+}
+
+message RootDwsMaster {
+	DataDws data = 1 [json_name="data"];
+}
+
+message DataDws {
+	repeated DailyWorkSchedule daily_work_schedule = 1 [json_name="daily_work_schedule"];
+}
+
+message DailyWorkSchedule {
+	google.protobuf.Int32Value	daily_work_schedule_group	= 1 [json_name = "daily_work_schedule_group"];
+	google.protobuf.StringValue daily_work_schedule_code	= 2 [json_name = "daily_work_schedule_code"];
+	google.protobuf.StringValue end_date					= 3 [json_name = "end_date"];
+	google.protobuf.StringValue start_date					= 4 [json_name = "start_date"];
+	google.protobuf.StringValue daily_work_schedule_text	= 5 [json_name = "daily_work_schedule_text"];
+	google.protobuf.Int32Value	planed_working_hours		= 6 [json_name = "planed_working_hours"];
+	google.protobuf.StringValue work_break_schedule_code	= 7 [json_name = "work_break_schedule_code"];
+}
+
+message RootEventPwsDws {
+	DataPwsDwsDetail data = 1 [json_name="data"];
+}
+
+message DataPwsDwsDetail {
+	repeated EmployeesPwsDwsDetail list_employees = 1 [json_name="employees"];
+}
+
+message EmployeesPwsDwsDetail {
+	repeated EmployeePwsDwsDetail2 list_employee2 = 1 [json_name="employee"];
+}
+
+message EmployeePwsDwsDetail2 {
+	google.protobuf.StringValue employee_id					= 1 [json_name="employee_id"];
+	google.protobuf.StringValue start_date					= 2 [json_name="start_date"];
+	google.protobuf.Int32Value	month_hours					= 3 [json_name="month_hours"];
+	google.protobuf.FloatValue	week_hours					= 4 [json_name="week_hours"];
+	google.protobuf.Int32Value	daily_hours					= 5 [json_name="daily_hours"];
+	google.protobuf.Int32Value	week_days					= 6 [json_name="week_days"];
+	repeated string daily_work_schedule_code				= 7 [json_name="daily_work_schedule_code"];
+	google.protobuf.StringValue work_schedule_rule			= 8 [json_name="work_schedule_rule"];
+	repeated double	planned_working_hours					= 9 [json_name="planned_working_hours"];
+	repeated string planned_working_time					= 10 [json_name="planned_working_time"];
+	google.protobuf.StringValue work_break_schedule			= 11 [json_name="work_break_schedule"];
+}
+
+service PwsDwsMasterServiceGrpc {
+	rpc EventPwsDws(RootEventPwsDws) returns (ResponseMessage) {
+		option (google.api.http) = {
+			post: "/v1/talenta-receiver/event-pws-dws",
+			body: "*"
+		};
+	}
+
+	rpc PostSingleDws(RootEventPwsDws) returns (ResponseMessage) {
+		option (google.api.http) = {
+			post: "/v1/talenta-receiver/single-dws",
+			body: "*"
+		};
+	}
+
+	rpc PostPwsMaster(RootMasterPws) returns (ResponseMessage) {
+		option (google.api.http) = {
+			post: "/v1/talenta-receiver/pws-master",
+			body: "*"
+		};
+	}
+
+	rpc PostDwsMaster(RootDwsMaster) returns (ResponseMessage) {
+		option (google.api.http) = {
+			post: "/v1/talenta-receiver/dws-master",
+			body: "*"
+		};
+	}
+}

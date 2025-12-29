@@ -1,0 +1,114 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: talenta-receiver
+  name: talenta-receiver
+  annotations:
+    secret.reloader.stakater.com/reload: "secret-talenta-receiver"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: talenta-receiver
+  strategy:
+    rollingUpdate:
+      # This should be set to 0 if we only have 1 replica defined
+      maxUnavailable: 25%    
+  template:
+    metadata:
+      labels:
+        app: talenta-receiver
+    spec:
+      volumes:
+      - name: appsettings-volume
+        secret:
+          secretName: secret-talenta-receiver
+      - name: workdir
+        emptyDir: {}
+      containers:
+      - name: talenta-receiver
+        image: asia.gcr.io/$NAMESPACE/talenta-receiver:$BUILD_NUMBER
+        readinessProbe:
+          httpGet:
+            path: /hc
+            port: 4021
+          initialDelaySeconds: 60
+          periodSeconds: 10   
+        volumeMounts:
+        - name: workdir
+          mountPath: /var/ssl
+        - name: appsettings-volume
+          mountPath: /app/appsettings.json
+          subPath: appsettings.json  
+        env:
+        - name: ELASTIC_APM_SERVER_URL
+          valueFrom:
+            configMapKeyRef:
+              name: configmap-apm
+              key: ELASTIC_APM_SERVER_URL
+        - name: ELASTIC_APM_SERVICE_NAME
+          value: bbone-net-jpk3service
+        - name: ELASTIC_APM_ENVIRONMENT
+          valueFrom:
+            configMapKeyRef:
+              name: configmap-apm
+              key: ELASTIC_APM_ENVIRONMENT
+        ports:
+        - containerPort: 4021
+        - containerPort: 4022
+        - containerPort: 4023
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jpk3service
+  labels:
+    app: jpk3service
+  annotations:
+    cloud.google.com/app-protocols: '{"grpc":"HTTP2"}'
+spec:
+  type: NodePort
+  ports:
+  - name: https
+    port: 4023
+    targetPort: 4023
+  - name: http2
+    protocol: TCP
+    port: 4022
+    targetPort: 4022  
+  - name: http
+    protocol: TCP
+    port: 4021
+    targetPort: 4021
+
+  selector:
+    app: jpk3service
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jpk3service-lb
+  labels:
+    app: jpk3service-lb
+  annotations:
+    cloud.google.com/app-protocols: '{"grpc":"HTTP2"}'
+spec:
+  clusterIP: None
+  ports:
+    - name: https
+      port: 4023
+      targetPort: 4023
+    - name: http2
+      protocol: TCP
+      port: 4022
+      targetPort: 4022
+    - name: http
+      protocol: TCP
+      port: 4021
+      targetPort: 4021
+  selector:
+    app: jpk3service

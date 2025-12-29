@@ -1,0 +1,87 @@
+syntax = "proto3";
+
+option csharp_namespace = "TalentaReceiver.Protos";
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/timestamp.proto";
+import "google/api/annotations.proto";
+import "Protos/Employee.proto";
+
+message HiringEmployeeModels {
+	google.protobuf.StringValue employeenumber		= 1 [json_name="employeenumber"];
+	google.protobuf.StringValue hiringdate			= 2 [json_name="hiringdate"];
+	google.protobuf.StringValue actiontype			= 3 [json_name="actiontype"]; 
+	google.protobuf.StringValue reasonforaction		= 4 [json_name="reasonforaction"];
+	google.protobuf.StringValue werks				= 5 [json_name="werks"];
+	google.protobuf.StringValue btrtl				= 6 [json_name="btrtl"];
+	google.protobuf.StringValue persg				= 7 [json_name="persg"];
+	google.protobuf.StringValue persk				= 8 [json_name="persk"];
+	google.protobuf.StringValue abkrs				= 9 [json_name="abkrs"];
+	google.protobuf.StringValue ansvh				= 10 [json_name="ansvh"];
+	google.protobuf.StringValue plans				= 11 [json_name="plans"];
+	google.protobuf.StringValue stell				= 12 [json_name="stell"];
+	google.protobuf.StringValue sachz				= 13 [json_name="sachz"];
+	google.protobuf.StringValue created_at			= 14 [json_name="created_at"];
+	google.protobuf.StringValue created_by			= 15 [json_name="created_by"];
+	google.protobuf.StringValue status				= 16 [json_name="status"];
+	google.protobuf.StringValue response_message	= 17 [json_name="response_message"];
+}
+
+message PersonalDataModels {
+	google.protobuf.StringValue pernr = 1; 
+	google.protobuf.StringValue begda = 2; 
+	google.protobuf.StringValue endda = 3; 
+	google.protobuf.StringValue cname = 4; 
+	google.protobuf.StringValue anred = 5; 
+	google.protobuf.StringValue sprsl = 6; 
+	google.protobuf.StringValue gbpas = 7; 
+	google.protobuf.StringValue gbort = 8; 
+	google.protobuf.StringValue gblnd = 9; 
+	google.protobuf.StringValue natio = 10;
+	google.protobuf.StringValue famst = 11;
+	google.protobuf.StringValue famdt = 12;
+	google.protobuf.StringValue konfe = 13;
+	google.protobuf.StringValue gesch = 14;
+	google.protobuf.StringValue created_at = 15 [json_name="created_at"];
+	google.protobuf.StringValue created_by = 16 [json_name="created_by"];
+	google.protobuf.StringValue status = 17;
+	google.protobuf.StringValue response_message = 18 [json_name="response_message"];
+}
+
+message PersonalDataResponse {
+	repeated PersonalDataModels lPersonalData = 1;
+}
+
+message HiringEmployeeResponse {
+	repeated HiringEmployeeModels lHiringEmployee = 1;
+}
+
+message ParamRequest {
+	google.protobuf.StringValue created_at = 1 [json_name="created_at"];
+	google.protobuf.StringValue employee_id = 2 [json_name="employee_id"];
+}
+
+message WhitelistNipEmployeeRequest {
+	repeated string lNip = 1;
+}
+
+
+service SapLogDataServiceGrpc {
+	rpc GetHiringEmployeeLog (ParamRequest) returns (HiringEmployeeResponse) {
+		option (google.api.http) = {
+			get: "/v1/talenta-receiver/get-hiring-employee"
+		};
+	}
+
+	rpc GetPersonalEmployeeLog (ParamRequest) returns (PersonalDataResponse) {
+		option (google.api.http) = {
+			get: "/v1/talenta-receiver/get-personal-employee"
+		};
+	}
+
+	rpc PostWhitelistNipEmployee (WhitelistNipEmployeeRequest) returns (ResponseMessage) {
+		option (google.api.http) = {
+			post: "/v1/talenta-receiver/whitelist-nip-employee"
+			body: "*"
+		};
+	}
+}
