@@ -19,12 +19,11 @@ This project was built as part of a real integration workflow where API calls ar
 | Utilities | Custom helpers, validators, and mappers |
 
 ## 📦 Project Structure
-
-Talenta-Receiver-API-Gateway
+### 🧠 Talenta Receiver Gateway
 	Talenta-Receiver-API-Gateway/
 	├── Config/              # Application configuration setup
 	├── Mappers/             # DTO ↔ Domain model mappings
-	├── Models/              # Domain/data models
+	├── Models/              # Domain / data models
 	├── Repositories/        # Data access layer
 	├── Services/            # Business logic services
 	├── UseCases/            # Application use-case orchestrators
