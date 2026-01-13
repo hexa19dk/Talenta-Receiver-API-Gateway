@@ -21,19 +21,20 @@ This project was built as part of a real integration workflow where API calls ar
 ## 📦 Project Structure
 
 Talenta-Receiver-API-Gateway
-- 📁 **Config** – Application configuration setup  
-- 📁 **Mappers** – DTO / Model mapping utilities  
-- 📁 **Models** – Domain / data models  
-- 📁 **Repositories** – Data access layer  
-- 📁 **Services** – Business logic services  
-- 📁 **UseCases** – Application use-case orchestrators  
-- 📁 **Utils** – Helpers & utilities  
-- 📁 **Validators** – Input / request validators  
-- 📁 **Protos** – Protobufs (gRPC / integration events)  
-- **Dockerfile** – Container build definition  
-- **Jenkinsfile** – CI/CD pipeline automation  
-- **Program.cs** – Application entry point  
-- **Startup.cs** – Middleware, DI, routing
+	Talenta-Receiver-API-Gateway/
+	├── Config/              # Application configuration setup
+	├── Mappers/             # DTO ↔ Domain model mappings
+	├── Models/              # Domain/data models
+	├── Repositories/        # Data access layer
+	├── Services/            # Business logic services
+	├── UseCases/            # Application use-case orchestrators
+	├── Validators/          # Input & request validation
+	├── Utils/               # Helpers & shared utilities
+	├── Protos/              # Protobufs (gRPC / integration events)
+	├── Dockerfile           # Container build definition
+	├── Jenkinsfile          # CI/CD pipeline configuration
+	├── Program.cs           # Application entry point
+	└── Startup.cs           # Middleware, DI, routing
 
 
 ## 🧠 Design Patterns & Principles
